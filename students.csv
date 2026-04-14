@@ -1,3 +1,6 @@
-name;course;score1;score2
-roxane;OOADI;60.0;78.0
-CRABEL;OOADI;78.0;67.0
+name;course;Score 1;Score 2;Avrage;Grade
+gerard;advanced databse;56.0;78.0;;
+clarisse;advanced databse;78.0;78.0;;
+Ambode;data science;88;47;;
+emilien;data science;69;36;;
+chico;isn;43;29;;
