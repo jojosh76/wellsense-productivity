@@ -1,92 +1,130 @@
-# MentorIA
+# InternsHelp 
 
-**Plateforme d’apprentissage collaboratif avec IA et mentorat**
+**Plateforme mobile de gestion de stages et de mentorat**
 
-Une application Flutter mobile qui connecte étudiants, mentors et intelligence artificielle pour un apprentissage moderne et efficace.
+InternsHelp est une application Flutter conçue pour simplifier la gestion des stages et du mentorat, particulièrement au sein de l’**ICT (Institut des Technologies du Cameroun)**.
 
-## ✨ Fonctionnalités principales
 
-- **Tableau de bord** : Accès rapide aux cours disponibles
-- **Discussion en temps réel** : Chat texte + messages vocaux + images
-- **Assistant IA** : Conversation intelligente (texte et voix)
-- **Mentorat** : Trouver un mentor, envoyer une demande, gestion des statuts
-- **Espace Cours** : Documents, liens, visioconférence Google Meet, évaluations
-- **Notifications** : Suivi des demandes de mentorat
-- **Authentification** : Email / Google + gestion des rôles (student / mentor / admin)
+## Problème Résolu
 
-## 🛠️ Stack Technique
+Les stagiaires et étudiants font souvent face à :
+- Difficulté à trouver un mentor adapté
+- Manque de suivi structuré des tâches pendant le stage
+- Communication fragmentée avec les encadreurs
+- Accès difficile aux ressources pédagogiques
+- Gestion manuelle et peu claire des évaluations et feedbacks
 
-- **Frontend** : Flutter (mobile-first)
-- **Backend** : Firebase (Firestore, Authentication, Storage)
-- **IA** : Supabase Edge Function + Hugging Face
-- **Enregistrement vocal** : package `record`
-- **Lecture audio** : `just_audio`
-- **Photos** : `image_picker`
 
-## 📱 Installation
 
-1. Clone le repository
-   ```bash
-   git clone <url-du-repo>
-   cd mentor_ia
+## Solution
 
-Installe les dépendancesBashflutter pub get
-Configure Firebase
-Ajoute ton fichier google-services.json (Android)
-Ajoute ton fichier GoogleService-Info.plist (iOS)
-Mets à jour les clés Supabase dans ai_page.dart
+**InternsHelp** centralise l’ensemble du processus de stage dans une seule application :
 
-Lance l’applicationBashflutter run
+- Mise en relation étudiants ↔ mentors
+- Suivi avancé des tâches avec soumission de travaux
+- Espace de cours et partage de ressources
+- Communication en temps réel (chat + vocal)
+- Assistant IA intégré
+- Évaluations et feedback formalisés
 
-📂 Structure du projet
-textlib/
-├── pages/              → Toutes les pages (Dashboard, Discussion, AI, etc.)
-├── auth/               → Authentification
-├── services/           → Services Firestore & Storage
-Assistant IA (MentorIA)
-L’application intègre un Assistant IA puissant qui permet aux étudiants d’obtenir des réponses rapides et pédagogiques en texte (et bientôt en vocal).
-Configuration actuelle
 
-Plateforme : Supabase Edge Functions
-Nom de la fonction : hf-chat
-Lien direct : https://supabase.com/dashboard/project/zgtxzbmhksidcjnqotbx/functions/hf-chat/code
-Modèle IA : Llama 3.3 70B Versatile (via Groq)
-Clé API : GROQ_API_KEY configurée dans les Variables d’environnement de la fonction sur Supabase
 
-La fonction est déjà déployée et utilise une API compatible OpenAI pour appeler Groq, ce qui garantit des réponses très rapides et de haute qualité.
-Prompt système actuel
-L’IA est configurée pour agir comme un assistant pédagogique encourageant, spécialisé en informatique, développement web/mobile et technologies ICT.
+## Fonctionnalités Principales
 
-Comment modifier et redéployer la fonction
-Si tu veux modifier le code de la fonction (hf-chat) :
+###  Authentification & Rôles
+- Inscription et connexion (Email + Google)
+- Détection automatique du rôle (`student` / `mentor`) selon le domaine de l’email (`@ict.cm`)
+- Gestion de profil avec photo
 
-Va sur le lien ci-dessus et édite le code directement dans le dashboard Supabase, ou
-Utilise la Supabase CLI (recommandé pour le développement local) :
+### Mentorat
+- Annuaire des mentors
+- Envoi et gestion des demandes de mentorat
+- Acceptation / refus par les mentors
+- Discussions privées (texte, images, messages vocaux)
 
-Bash# 1. Installer la CLI (si ce n’est pas déjà fait)
-npm install -g supabase
+###  Cours & Ressources
+- Catalogue de cours
+- Ajout de documents (liens Drive, Google Meet, etc.)
+- Scan de supports physiques via caméra
+- Accès restreint selon le rôle (mentor/admin)
 
-# 2. Se connecter à ton projet
-supabase login
+###  Gestion des Tâches
+- Création de tâches par les mentors
+- Tableau de suivi type Kanban (`À faire` / `En cours` / `En attente de feedback` / `Terminé`)
+- Soumission de travaux (photos ou fichiers)
+- Feedback détaillé + évaluation (note technique & autonomie)
+- Priorité et dates d’échéance
 
-# 3. Lier ton projet local (une seule fois)
-supabase link --project-ref zgtxzbmhksidcjnqotbx
+###  AI Assistant
+- Assistant conversationnel basé sur **Groq + Llama 3.3**
+- Support vocal (speech-to-text)
+- Accessible directement depuis le menu
 
-# 4. Développer localement (optionnel)
-supabase functions serve hf-chat --env-file ./supabase/.env.local
+###  Discussion & Notifications
+- Chat privé riche en médias
+- Gestion centralisée des demandes de mentorat
 
-# 5. Déployer la fonction mise à jour
-supabase functions deploy hf-chat
-Après chaque modification importante, pense à redéployer avec :
-Bashsupabase functions deploy hf-chat
+###  Autres fonctionnalités
+- Intégration Google Meet pour les sessions
+- Évaluations techniques et d’autonomie
+- Design moderne et responsive
 
-Mise à jour dans le code Flutter (ai_page.dart)
-Assure-toi que l’URL pointe bien vers ta fonction :
-Dartstatic const String _supabaseFunctionUrl =
-    'https://zgtxzbmhksidcjnqotbx.supabase.co/functions/v1/hf-chat';
-└── models/             → (à venir)
-👥 Public cible
+---
 
-Étudiants et stagiaires en formation ICT / Tech
-Mentors et formateurs
-Centres de formation et écoles supérieures
+## Architecture Technique
+
+- **Frontend** : Flutter (single codebase – Android, iOS, Web)
+- **Backend** : Firebase (Authentication, Firestore, Storage)
+- **IA** : Supabase Edge Function + Groq API (Llama 3.3 70B)
+- **Architecture** : Modulaire par feature
+  - `pages/` – Écrans de l’application
+  - `services/` – Couche métier (TaskService, PostService, etc.)
+  - `models/` – Modèles de données (`TaskModel`)
+  - `auth/` – Gestion de l’authentification
+
+**Technologies clés** :
+- Firebase Firestore (temps réel)
+- Firebase Storage (médias)
+- `speech_to_text`, `image_picker`, `just_audio`, `url_launcher`
+- HTTP + Supabase Functions
+
+
+ Installation & Lancement
+
+ Prérequis
+- Flutter SDK (version stable recommandée)
+- Projet Firebase configuré
+- Clé Groq configurée dans les variables d’environnement Supabase (pour l’IA)
+
+Étapes
+
+1. **Cloner le repository**
+   
+   git clone https://github.com/votre-org/internshelp.git
+   cd internshelp
+   
+
+2. **Installer les dépendances**
+   **flutter pub get**
+
+3. **Configurer Firebase**
+   - Assurez-vous que `lib/firebase_options.dart` est correctement configuré
+
+4. Lancer l’application
+   
+   **flutter run**
+   
+
+## Structure du Projet
+
+lib/
+├── auth/               # Services d'authentification
+├── models/             # Modèles de données (TaskModel, etc.)
+├── services/           # Services Firestore et logique métier
+├── pages/              # Toutes les pages de l'application
+│   ├── ai_page.dart
+│   ├── course_page.dart
+│   ├── discussion_page.dart
+│   ├── task_management_page.dart
+│   └── ...
+└── main.dart
