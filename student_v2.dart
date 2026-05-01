@@ -1,6 +1,8 @@
 import 'dart:io';
 
-// 1. Classe de données
+// 1. Classe de données Notion :Encapsulation de données :Ce qu'elle fait : Elle crée un "moule" pour structurer tes informations. Au lieu
+de gérer 4 variables indépendantes pour chaque élève, le programme crée un seulobjet `Student` qui les regroupe toutes. Le `final` empêche de modifier les notes
+//une fois l'étudiant créé (sécurité).  
 class Student {
   final String name;
   final String course;
@@ -10,7 +12,8 @@ class Student {
   Student(this.name, this.course, this.score1, this.score2);
 }
 
-// 2. Logique de calcul (Abstraite)
+// 2. Logique de calcul (Abstraite) :La classe `GradeProcessor` ne peut pas être utilisée telle quelle. Elle oblige n'importe 
+//  quelle classe qui veut calculer des notes à
 abstract class GradeProcessor {
   double calculateAverage(double s1, double s2) => (s1 + s2) / 2;
   String getGrade(double average);
@@ -24,7 +27,8 @@ abstract class GradeProcessor {
   }
 }
 
-// 3. Implémentation du calculateur
+// 3. Implémentation du calculateur : polymorphisme  La classe `StudentGradeCalculator` "hérite" de la logique de `GradeProcessor`. Elle remplace (via `@override`) la logique vide `getGrade` par tes vraies règles de calcul (A, B, C...).
+//C'est ce qui permet de changer la façon de calculer les notes sans toucher au reste du programme.
 class StudentGradeCalculator extends GradeProcessor {
   @override
   String getGrade(double average) {
@@ -39,7 +43,9 @@ class StudentGradeCalculator extends GradeProcessor {
 
 // --- FONCTIONS DE GESTION CSV ---
 
-// Remplit le fichier source students.csv à partir de la saisie utilisateur
+// Remplit le fichier source students.csv à partir de la saisie utilisateur; higher order :
+//`.map()` prend chaque objet `Student` de ta liste et lui applique la fonction `(s) => ...`. Le résultat est une nouvelle liste transformée en texte (CSV). 
+//C'est beaucoup plus court et propre qu'une boucle `for` manuelle.
 void saveToSourceCSV(List<Student> students, String path) {
   File file = File(path);
   String header = "name;course;score1;score2\n";
